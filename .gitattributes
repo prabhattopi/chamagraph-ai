@@ -1,0 +1,4 @@
+*.jac linguist-detectable=true
+*.jac linguist-language=Jac
+*.html linguist-detectable=false
+*.json linguist-detectable=false

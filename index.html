@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChamaGraph AI - Multi-Agent Micro-Finance Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #090d16; color: #f1f5f9; }
+        .card { background: rgba(18, 24, 38, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
+        .glow-accent { box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25); }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+    <div class="max-w-7xl mx-auto space-y-6">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+            <div>
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 text-xs font-semibold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">Jac Native</span>
+                    <span class="px-2.5 py-1 text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full">Gemini 2.5 Flash</span>
+                </div>
+                <h1 class="text-3xl font-bold tracking-tight text-white mt-2">ChamaGraph AI</h1>
+                <p class="text-slate-400 text-sm">Autonomous Multi-Agent Community Micro-Finance & Trust Network</p>
+            </div>
+            <button onclick="fetchOverview()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sm font-medium rounded-lg transition border border-slate-700 flex items-center gap-2 self-start md:self-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                Sync Graph State
+            </button>
+        </header>
+
+        <!-- Metric Stat Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="card p-5 rounded-xl glow-accent">
+                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Vault Liquidity (KES)</p>
+                <h3 id="stat-liquidity" class="text-3xl font-bold text-emerald-400 mt-1">KES 0</h3>
+                <p id="stat-pool-name" class="text-xs text-slate-500 mt-2">Nairobi Innovators Chama</p>
+            </div>
+            <div class="card p-5 rounded-xl">
+                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Active Loan Volume</p>
+                <h3 id="stat-loans" class="text-3xl font-bold text-blue-400 mt-1">KES 0</h3>
+                <p class="text-xs text-slate-500 mt-2">Protected by AI Risk Scoring</p>
+            </div>
+            <div class="card p-5 rounded-xl">
+                <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Community Members</p>
+                <h3 id="stat-members" class="text-3xl font-bold text-amber-400 mt-1">0</h3>
+                <p class="text-xs text-slate-500 mt-2">Autonomous Trust Scoring</p>
+            </div>
+        </div>
+
+        <!-- Interactive Agent Triggers -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Trigger 1: M-Pesa SMS Agent -->
+            <div class="card p-6 rounded-xl space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        Agent 1: Parse M-Pesa SMS Deposit
+                    </h2>
+                    <span class="text-xs text-slate-400">ProcessSMSDeposit Walker</span>
+                </div>
+                <p class="text-xs text-slate-400">Simulate incoming Kenyan mobile money SMS receipts. The agent extracts metadata, validates authenticity, and credits the member's graph node.</p>
+                <textarea id="input-sms" rows="3" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-3 text-sm text-slate-200 focus:outline-none focus:border-emerald-500" placeholder="Paste M-Pesa SMS here..."></textarea>
+                <div class="flex gap-2">
+                    <button onclick="prefillSMS('amina')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">Amina (KES 3,500)</button>
+                    <button onclick="prefillSMS('david')" class="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">David (KES 1,800)</button>
+                </div>
+                <button onclick="submitSMS()" id="btn-sms" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm rounded-lg transition">Execute Deposit Walker</button>
+                <div id="sms-result" class="hidden p-3 rounded-lg text-xs font-mono"></div>
+            </div>
+
+            <!-- Trigger 2: Loan Underwriting Agent -->
+            <div class="card p-6 rounded-xl space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                        Agent 2: Community Loan Underwriter
+                    </h2>
+                    <span class="text-xs text-slate-400">ApplyLoanWithAudit Walker</span>
+                </div>
+                <p class="text-xs text-slate-400">Evaluates savings volume, community trust, and liquidity to generate an explainable credit audit via Gemini.</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-slate-400">Applicant</label>
+                        <select id="loan-member" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-200">
+                            <option value="David Ochieng">David Ochieng</option>
+                            <option value="Amina Wanjiku">Amina Wanjiku</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400">Amount (KES)</label>
+                        <input id="loan-amount" type="number" value="6000" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-200">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400">Loan Purpose</label>
+                    <input id="loan-purpose" type="text" value="Purchase inventory for student solar lantern service" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-sm text-slate-200">
+                </div>
+                <button onclick="submitLoan()" id="btn-loan" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-lg transition">Execute Underwriting Walker</button>
+                <div id="loan-result" class="hidden p-3 rounded-lg text-xs font-mono"></div>
+            </div>
+        </div>
+
+        <!-- Live Graph State Explorer -->
+        <div class="card p-6 rounded-xl space-y-4">
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                Live Member Nodes & Trust Topology
+            </h2>
+            <div id="members-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p class="text-sm text-slate-500">Loading graph topology...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function prefillSMS(user) {
+            if (user === 'amina') {
+                document.getElementById('input-sms').value = 'QH34MK99PL Confirmed. Ksh3,500.00 sent to Nairobi Innovators Chama from +254712345678 on 17/10/2026. Savings Deposit.';
+            } else {
+                document.getElementById('input-sms').value = 'TG78PO12XC Confirmed. Ksh1,800.00 sent to Nairobi Innovators Chama from +254798765432 on 17/10/2026. Monthly contribution.';
+            }
+        }
+
+        async function fetchOverview() {
+            try {
+                const res = await fetch('/api/overview');
+                const data = await res.json();
+                document.getElementById('stat-liquidity').innerText = 'KES ' + Number(data.total_liquidity_kes || 0).toLocaleString();
+                document.getElementById('stat-loans').innerText = 'KES ' + Number(data.active_loans_kes || 0).toLocaleString();
+                document.getElementById('stat-pool-name').innerText = data.pool_name || 'Nairobi Innovators Chama';
+                document.getElementById('stat-members').innerText = (data.members || []).length;
+
+                const container = document.getElementById('members-container');
+                container.innerHTML = '';
+                (data.members || []).forEach(m => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-900/80 border border-slate-800 p-4 rounded-lg space-y-3';
+                    const txList = (m.recent_transactions || []).map(t => `<li class="text-emerald-400 font-mono text-[11px]">${t.code} - KES ${t.amount} (${t.type})</li>`).join('') || '<li class="text-slate-500 text-[11px]">No transactions yet</li>';
+                    const loanList = (m.loans || []).map(l => `<li class="text-blue-400 text-[11px]"><span class="font-semibold">${l.status}</span>: KES ${l.requested} - "${l.purpose}" (Risk: ${l.risk}/100)</li>`).join('') || '<li class="text-slate-500 text-[11px]">No active loans</li>';
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-white">${m.name}</h3>
+                                <p class="text-xs text-slate-400">${m.role} • ${m.phone}</p>
+                            </div>
+                            <span class="px-2 py-0.5 text-xs font-semibold rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Trust Score: ${m.trust_score}/100</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm pt-1 border-t border-slate-800">
+                            <span class="text-slate-400 text-xs">Total Saved:</span>
+                            <span class="font-bold text-emerald-400">KES ${Number(m.saved_kes).toLocaleString()}</span>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Verified M-Pesa Transactions</p>
+                            <ul class="space-y-0.5">${txList}</ul>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Underwritten Micro-Loans</p>
+                            <ul class="space-y-0.5">${loanList}</ul>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function submitSMS() {
+            const sms = document.getElementById('input-sms').value;
+            const btn = document.getElementById('btn-sms');
+            const resDiv = document.getElementById('sms-result');
+            if (!sms) return;
+            btn.disabled = true;
+            btn.innerText = 'Agent Traveling on Graph...';
+            resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-slate-900 border border-slate-700 text-slate-300';
+            resDiv.innerText = 'Gemini parsing SMS receipt and mutating graph nodes...';
+            resDiv.classList.remove('hidden');
+
+            try {
+                const res = await fetch('/api/deposit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ raw_sms: sms })
+                });
+                const data = await res.json();
+                resDiv.innerText = JSON.stringify(data, null, 2);
+                resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-emerald-950/40 border border-emerald-500/30 text-emerald-300';
+                await fetchOverview();
+            } catch (e) {
+                resDiv.innerText = 'Error: ' + e.message;
+                resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-red-950/40 border border-red-500/30 text-red-300';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Execute Deposit Walker';
+            }
+        }
+
+        async function submitLoan() {
+            const member_name = document.getElementById('loan-member').value;
+            const requested_kes = document.getElementById('loan-amount').value;
+            const purpose = document.getElementById('loan-purpose').value;
+            const btn = document.getElementById('btn-loan');
+            const resDiv = document.getElementById('loan-result');
+
+            btn.disabled = true;
+            btn.innerText = 'Agent Auditing Applicant...';
+            resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-slate-900 border border-slate-700 text-slate-300';
+            resDiv.innerText = 'Gemini evaluating savings, trust, and risk score...';
+            resDiv.classList.remove('hidden');
+
+            try {
+                const res = await fetch('/api/loan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ member_name, requested_kes, purpose })
+                });
+                const data = await res.json();
+                resDiv.innerText = JSON.stringify(data, null, 2);
+                resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-blue-950/40 border border-blue-500/30 text-blue-300';
+                await fetchOverview();
+            } catch (e) {
+                resDiv.innerText = 'Error: ' + e.message;
+                resDiv.className = 'p-3 rounded-lg text-xs font-mono bg-red-950/40 border border-red-500/30 text-red-300';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Execute Underwriting Walker';
+            }
+        }
+
+        prefillSMS('amina');
+        fetchOverview();
+    </script>
+</body>
+</html>

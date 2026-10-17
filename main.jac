@@ -38,3 +38,40 @@ walker InitChamaGraph {
         }
     }
 }
+
+# Python-callable API bridges (100% Jac native execution)
+def api_init_graph() -> any {
+    res = root spawn InitChamaGraph();
+    if len(res.reports) > 0 {
+        return res.reports[0];
+    }
+    return {"status": "initialized"};
+}
+
+def api_get_overview() -> any {
+    res = root spawn GetChamaOverview();
+    if len(res.reports) > 0 {
+        return res.reports[0];
+    }
+    return {};
+}
+
+def api_process_deposit(raw_sms: str) -> any {
+    res = root spawn ProcessSMSDeposit(raw_sms=raw_sms);
+    if len(res.reports) > 0 {
+        return res.reports[0];
+    }
+    return {"success": False, "error": "No report returned"};
+}
+
+def api_apply_loan(member_name: str, requested_kes: float, purpose: str) -> any {
+    res = root spawn ApplyLoanWithAudit(
+        member_name=member_name,
+        requested_kes=requested_kes,
+        purpose=purpose
+    );
+    if len(res.reports) > 0 {
+        return res.reports[0];
+    }
+    return {"success": False, "error": "No report returned"};
+}
