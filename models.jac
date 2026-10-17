@@ -1,21 +1,30 @@
 # models.jac - Core Graph Nodes & Structured AI Types
 
-# 1. Structured output contract for our AI Risk & Fraud Auditor
+# 1. Structured Output: M-Pesa SMS Parser Contract
+obj ParsedSMS {
+    has tx_code: str;             # e.g., "QA89RT21KM"
+    has amount_kes: float;        # Numeric amount in Kenyan Shillings
+    has sender_phone: str;        # Phone number with country code (e.g., +254712345678)
+    has tx_type: str;             # "CONTRIBUTION" or "REPAYMENT"
+    has is_valid_receipt: bool;   # True if format matches genuine M-Pesa receipt
+}
+
+# 2. Structured Output: AI Underwriting & Risk Contract
 obj AuditResult {
     has risk_score: int;          # 0 (safest) to 100 (highest risk)
     has decision: str;            # "APPROVED", "REVIEW_REQUIRED", or "REJECTED"
-    has reasoning: str;           # Rationale for the Chama treasurer
+    has reasoning: str;           # Concise explanation for the Chama treasurer
     has recommended_limit: float; # Safe credit limit in KES based on savings & trust
 }
 
-# 2. Community Savings Pool (Vault Node)
+# 3. Community Savings Pool (Vault Node)
 node ChamaVault {
     has pool_name: str = "Nairobi Tech & Traders Chama";
     has total_liquidity_kes: float = 50000.0;
     has active_loans_kes: float = 0.0;
 }
 
-# 3. Individual Chama Member Node
+# 4. Individual Chama Member Node
 node Member {
     has full_name: str;
     has phone: str;
@@ -24,7 +33,7 @@ node Member {
     has trust_score: int = 75;    # Dynamic rating (0-100) updated by audit walkers
 }
 
-# 4. Mobile Money (M-Pesa) Transaction Node
+# 5. Mobile Money (M-Pesa) Transaction Node
 node Transaction {
     has tx_code: str;
     has tx_type: str;             # "CONTRIBUTION" or "REPAYMENT"
@@ -33,7 +42,7 @@ node Transaction {
     has verified_by_ai: bool = False;
 }
 
-# 5. Micro-Loan Application Node
+# 6. Micro-Loan Application Node
 node LoanApplication {
     has purpose: str;
     has requested_kes: float;
